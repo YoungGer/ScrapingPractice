@@ -122,15 +122,18 @@ if __name__ == '__main__':
     #初始化
     driver = webdriver.PhantomJS('/usr/local/phantomjs/bin/phantomjs')
     driver.implicitly_wait(1)
-    name = input('请输入登陆用的qq号：')
-    pw = input('请输入对应的qq密码：')
+    # name = input('请输入登陆用的qq号：')
+    # pw = input('请输入对应的qq密码：')
+    name = '771657815'
+    pw = 'ygy433991100'
     logIn(name,pw)
     query_name = input('请输入查询说说的qq账号：')
     TIMES_CONSTENTS = allPageInfo(query_name)
     if TIMES_CONSTENTS==None:
         print ('没有该qq的访问权限')
     else:
-        write2csv(TIMES_CONSTENTS,dest='bai.csv')
+        dest= input('输入保存的地址：')
+        write2csv(TIMES_CONSTENTS,dest=dest)
 
 
 
