@@ -80,6 +80,10 @@ def allPageInfo(query_name):
     global driver
     shuoshuo_index_url = "http://user.qzone.qq.com/"+query_name+'/311'
     driver.get(shuoshuo_index_url)
+    #首先判断是不是有访问权限
+    b0 = BeautifulSoup(driver.page_source,'lxml')
+    if b0.find('p',class_='tips').get_text()=="主人设置了权限，您可通过以下方式访问":
+        return None
     #进入主要的iframe
     try:
         element = WebDriverWait(driver,10).until(
@@ -123,7 +127,10 @@ if __name__ == '__main__':
     logIn(name,pw)
     query_name = input('请输入查询说说的qq账号：')
     TIMES_CONSTENTS = allPageInfo(query_name)
-    write2csv(TIMES_CONSTENTS,dest='bai.csv')
+    if TIMES_CONSTENTS==None:
+        print ('没有该qq的访问权限')
+    else:
+        write2csv(TIMES_CONSTENTS,dest='bai.csv')
 
 
 
